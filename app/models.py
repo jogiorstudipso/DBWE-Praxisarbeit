@@ -128,6 +128,13 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         back_populates='user')
     tasks: so.WriteOnlyMapped['Task'] = so.relationship(back_populates='user')
 
+    projects = db.relationship(
+        'Project',
+        backref='owner',
+        lazy='dynamic',
+        cascade='all, delete-orphan'
+    )
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
@@ -354,3 +361,52 @@ class Task(db.Model):
     def get_progress(self):
         job = self.get_rq_job()
         return job.meta.get('progress', 0) if job is not None else 100
+
+
+#############################################################################################################################################################################
+# Models.py wurde ab hier übernommen und wird nun für die Praxisarbeit von Joel Terry Giordanelli weitergeführt
+# Für die Praxisarbeit TaskTracker
+
+from datetime import date
+from sqlalchemy import func
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), index=True, nullable=False)
+
+    name = db.Column(db.String(140), nullable=False)
+    archived = db.Column(db.Boolean, default=False, nullable=False)
+
+    created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
+
+    tasks = db.relationship('TaskItem', backref='project', lazy='dynamic', cascade='all, delete-orphan')
+
+    def progress_percent(self) -> int:
+        total = self.tasks.count()
+        if total == 0:
+            return 0
+        done = self.tasks.filter_by(done=True).count()
+        return int(round((done / total) * 100))
+
+    def has_overdue(self) -> bool:
+        today = date.today()
+        return self.tasks.filter(TaskItem.done.is_(False),
+                                 TaskItem.due_date.isnot(None),
+                                 TaskItem.due_date < today).count() > 0
+
+
+class TaskItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), index=True, nullable=False)
+
+    title = db.Column(db.String(140), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    due_date = db.Column(db.Date, nullable=True)
+    done = db.Column(db.Boolean, default=False, nullable=False)
+
+    created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
+    completed_at = db.Column(db.DateTime, nullable=True)
+
+    def is_overdue(self) -> bool:
+        return (not self.done) and (self.due_date is not None) and (self.due_date < date.today())
