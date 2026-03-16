@@ -46,3 +46,37 @@ werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'main.t
 2026-03-06 10:01:31,805 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
 2026-03-06 10:03:12,186 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
 2026-03-06 10:03:17,721 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 21:23:35,227 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 21:24:23,217 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 21:53:32,912 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 21:53:53,608 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 21:54:29,091 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 21:56:05,711 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 22:59:29,066 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:12:04,799 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:15:02,181 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:20:52,318 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:26:19,103 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:26:32,088 ERROR: Exception on /api/projects [GET] [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask_httpauth.py", line 174, in decorated
+    return self.ensure_sync(f)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/api/routes.py", line 13, in get_projects
+    .filter_by(user_id=current_user.id, archived=False)
+                       ^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUserMixin' object has no attribute 'id'
+2026-03-16 23:37:52,930 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:40:59,116 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:47:23,406 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:47:49,189 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-16 23:48:09,184 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
