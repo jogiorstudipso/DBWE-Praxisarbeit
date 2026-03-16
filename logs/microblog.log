@@ -80,3 +80,4 @@ AttributeError: 'AnonymousUserMixin' object has no attribute 'id'
 2026-03-16 23:47:23,406 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
 2026-03-16 23:47:49,189 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
 2026-03-16 23:48:09,184 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+2026-03-17 00:06:24,501 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
