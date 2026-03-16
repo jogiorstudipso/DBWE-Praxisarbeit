@@ -1,4 +1,4 @@
-2026-03-06 09:34:45,206 ERROR: Exception on / [GET] [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py:875]
+2026-03-17 00:27:23,184 ERROR: Exception on / [GET] [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py:875]
 Traceback (most recent call last):
   File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
     self._dbapi_connection = engine.raw_connection()
@@ -60,7 +60,7 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
   File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
     raise errorclass(errno, errval)
-pymysql.err.OperationalError: (1045, "Access denied for user 'avnadmin'@'31.165.225.56' (using password: YES)")
+pymysql.err.OperationalError: (1045, "Access denied for user 'avnadmin'@'188.154.73.33' (using password: YES)")
 
 The above exception was the direct cause of the following exception:
 
@@ -73,7 +73,7 @@ Traceback (most recent call last):
     rv = self.preprocess_request()
   File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1291, in preprocess_request
     rv = self.ensure_sync(before_func)()
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/main/routes.py", line 14, in before_request
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/main/routes.py", line 13, in before_request
     if current_user.is_authenticated:
        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/werkzeug/local.py", line 318, in __get__
@@ -220,5 +220,5 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
   File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
     raise errorclass(errno, errval)
-sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'avnadmin'@'31.165.225.56' (using password: YES)")
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'avnadmin'@'188.154.73.33' (using password: YES)")
 (Background on this error at: https://sqlalche.me/e/20/e3q8)

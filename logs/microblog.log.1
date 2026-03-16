@@ -1,93 +1,224 @@
-2026-03-06 09:40:34,879 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
-2026-03-06 09:54:04,009 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
-2026-03-06 09:54:29,706 ERROR: Exception on /projects/1 [GET] [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py:875]
+2026-03-17 00:28:49,685 ERROR: Exception on / [GET] [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 681, in connect
+    self._request_authentication()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 980, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/_auth.py", line 258, in caching_sha2_password_auth
+    return _roundtrip(conn, conn.password + b"\0")
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 782, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'avnadmin'@'188.154.73.33' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
   File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 919, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/main/routes.py", line 63, in project_detail
-    return render_template('project_detail.html', title=project.name, project=project, tasks=tasks, form=form)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/templating.py", line 151, in render_template
-    return _render(app, template, context)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/templating.py", line 132, in _render
-    rv = template.render(context)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/jinja2/environment.py", line 1295, in render
-    self.environment.handle_exception()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/jinja2/environment.py", line 942, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/templates/project_detail.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/templates/base.html", line 62, in top-level template code
-    {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/templates/project_detail.html", line 71, in block 'content'
-    <form method="post" action="{{ url_for('main.toggle_task', task_id=t.id) }}">
-    ^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1121, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1110, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-        endpoint,
-    ...<3 lines>...
-        force_external=_external,
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 915, in full_dispatch_request
+    rv = self.preprocess_request()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1291, in preprocess_request
+    rv = self.ensure_sync(before_func)()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/main/routes.py", line 13, in before_request
+    if current_user.is_authenticated:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/werkzeug/local.py", line 318, in __get__
+    obj = instance._get_current_object()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/werkzeug/local.py", line 526, in _get_current_object
+    return get_name(local())
+                    ~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+                                      ~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask_login/login_manager.py", line 364, in _load_user
+    user = self._user_callback(user_id)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/models.py", line 291, in load_user
+    return db.session.get(User, int(id))
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/scoping.py", line 1044, in get
+    return self._proxied.get(
+           ~~~~~~~~~~~~~~~~~^
+        entity,
+        ^^^^^^^
+    ...<6 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/werkzeug/routing/map.py", line 901, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'main.toggle_task' with values ['task_id']. Did you mean 'main.project_detail' instead?
-2026-03-06 09:54:46,286 ERROR: Exception on /projects/1 [GET] [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py:875]
-Traceback (most recent call last):
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/main/routes.py", line 63, in project_detail
-    return render_template('project_detail.html', title=project.name, project=project, tasks=tasks, form=form)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/templating.py", line 151, in render_template
-    return _render(app, template, context)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/templating.py", line 132, in _render
-    rv = template.render(context)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/jinja2/environment.py", line 1295, in render
-    self.environment.handle_exception()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/jinja2/environment.py", line 942, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/templates/project_detail.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/templates/base.html", line 62, in top-level template code
-    {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/templates/project_detail.html", line 71, in block 'content'
-    <form method="post" action="{{ url_for('main.toggle_task', task_id=t.id) }}">
-    ^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1121, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/flask/app.py", line 1110, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-        endpoint,
-    ...<3 lines>...
-        force_external=_external,
+    ^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py", line 3680, in get
+    return self._get_impl(
+           ~~~~~~~~~~~~~~^
+        entity,
+        ^^^^^^^
+    ...<7 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
-  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/werkzeug/routing/map.py", line 901, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'main.toggle_task' with values ['task_id']. Did you mean 'main.project_detail' instead?
-2026-03-06 09:56:15,357 INFO: Microblog startup [in /Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/app/__init__.py:99]
+    ^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py", line 3859, in _get_impl
+    return db_load_fn(
+        self,
+    ...<5 lines>...
+        bind_arguments=bind_arguments,
+    )
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+    session.execute(
+    ~~~~~~~~~~~~~~~^
+        q,
+        ^^
+    ...<2 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        err, dialect, engine
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+    return self._create_connection()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+    self.__connect()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/create.py", line 661, in connect
+    return dialect.connect(*cargs, **cparams)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 365, in __init__
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 681, in connect
+    self._request_authentication()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 980, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/_auth.py", line 258, in caching_sha2_password_auth
+    return _roundtrip(conn, conn.password + b"\0")
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/connections.py", line 782, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/joelgiordanelli/Documents/GitHub/DBWE/DBWE-Praxisarbeit/.venv/lib/python3.14/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'avnadmin'@'188.154.73.33' (using password: YES)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
