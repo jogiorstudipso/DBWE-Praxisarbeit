@@ -1,2 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment / secrets
 .env
-.venv
+.env.*
+*.env
+
+# Flask / local DB
+instance/
+*.db
+app.db
+
+# Logs
+logs/
+*.log
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Test / cache
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# Mac zip leftovers
+__MACOSX/
+
+# Local certificates if not intended for repo
+certs/*.pem
+certs/*.crt
+certs/*.key

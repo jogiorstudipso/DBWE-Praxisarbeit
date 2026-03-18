@@ -3,17 +3,9 @@ flask_sqlalchemy
 flask_migrate
 python-dotenv
 flask_login
-flask_mail
-flask_moment
-flask_babel
-elasticsearch
-redis
-rq
 PyJWT
-requests
 flask_httpauth
 flask_wtf
-langdetect
 PyMySQL
 email-validator
 gunicorn
