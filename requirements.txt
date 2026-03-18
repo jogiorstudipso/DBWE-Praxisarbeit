@@ -16,3 +16,4 @@ flask_wtf
 langdetect
 PyMySQL
 email-validator
+gunicorn
