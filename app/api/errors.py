@@ -1,3 +1,5 @@
+"""Hilfsfunktionen fuer ein konsistentes API-Fehlerformat."""
+
 from werkzeug.http import HTTP_STATUS_CODES
 from werkzeug.exceptions import HTTPException
 from app.api import bp
@@ -17,4 +19,5 @@ def bad_request(message):
 
 @bp.errorhandler(HTTPException)
 def handle_exception(e):
+    # Wandelt Werkzeug/Flask HTTP-Exceptions in JSON-Fehlerantworten um.
     return error_response(e.code)

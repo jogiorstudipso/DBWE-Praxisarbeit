@@ -1,3 +1,8 @@
+"""WSGI/Flask Einstiegspunkt.
+
+Exportiert die App-Instanz und liefert Shell-Kontext fuer lokale Wartung.
+"""
+
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 

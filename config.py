@@ -1,3 +1,5 @@
+"""Zentrale App-Konfiguration aus Umgebungsvariablen."""
+
 import os
 from dotenv import load_dotenv
 
@@ -7,6 +9,7 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config:
+    # Grundlegende Flask-Konfiguration.
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     SERVER_NAME = os.environ.get('SERVER_NAME')
 
@@ -20,6 +23,7 @@ class Config:
         db_url = db_url.replace('mysql://', 'mysql+pymysql://', 1)
     SQLALCHEMY_DATABASE_URI = db_url
     
+    # Weitere optionale Integrationen/Features.
     LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)

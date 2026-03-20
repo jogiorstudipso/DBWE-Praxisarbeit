@@ -1,3 +1,5 @@
+"""API-Endpunkte zum Erstellen und Widerrufen von Bearer-Tokens."""
+
 from app import db
 from app.api import bp
 from app.api.auth import basic_auth, token_auth
@@ -18,4 +20,5 @@ def revoke_token():
     # Invalidiert das aktuelle Token sofort durch abgelaufene Expiration.
     token_auth.current_user().revoke_token()
     db.session.commit()
+    # 204 = erfolgreich, aber ohne Response-Body.
     return '', 204

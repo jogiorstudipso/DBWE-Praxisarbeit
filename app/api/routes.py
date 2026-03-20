@@ -1,3 +1,8 @@
+"""REST-Endpunkte fuer Projekte und Tasks.
+
+Alle Endpunkte arbeiten mit Token-Auth und liefern JSON.
+"""
+
 from datetime import datetime
 from flask import jsonify, request
 
@@ -10,6 +15,7 @@ from app.models import Project, TaskItem
 @bp.route('/projects', methods=['GET'])
 @token_auth.login_required
 def get_projects():
+    # Liefert alle nicht archivierten Projekte des aktuellen API-Users.
     user = token_auth.current_user()
 
     projects = (Project.query
@@ -35,6 +41,7 @@ def get_projects():
 @bp.route('/projects', methods=['POST'])
 @token_auth.login_required
 def create_project_api():
+    # Erstellt ein neues Projekt aus JSON-Input.
     user = token_auth.current_user()
     data = request.get_json() or {}
 
@@ -57,6 +64,7 @@ def create_project_api():
 @bp.route('/projects/<int:project_id>/tasks', methods=['GET'])
 @token_auth.login_required
 def get_project_tasks(project_id):
+    # Projekt wird auf Besitz geprueft (id + user_id), sonst 404.
     user = token_auth.current_user()
 
     project = (Project.query
@@ -93,6 +101,7 @@ def get_project_tasks(project_id):
 @bp.route('/projects/<int:project_id>/tasks', methods=['POST'])
 @token_auth.login_required
 def create_task_api(project_id):
+    # Erstellt eine Task innerhalb eines Projekts des aktuellen Users.
     user = token_auth.current_user()
 
     project = (Project.query
@@ -127,6 +136,7 @@ def create_task_api(project_id):
     db.session.add(task)
     db.session.commit()
 
+    # Rueckgabe im API-Format fuer direkte Weiterverarbeitung im Client.
     return jsonify({
         'id': task.id,
         'project_id': task.project_id,
