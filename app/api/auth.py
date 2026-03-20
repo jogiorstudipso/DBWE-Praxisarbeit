@@ -1,3 +1,9 @@
+"""Authentifizierung fuer API-Endpunkte.
+
+Basic Auth wird verwendet, um ein Token anzufordern.
+Token Auth schuetzt alle restlichen API-Endpunkte.
+"""
+
 import sqlalchemy as sa
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from app import db
@@ -10,6 +16,7 @@ token_auth = HTTPTokenAuth()
 
 @basic_auth.verify_password
 def verify_password(username, password):
+    # /tokens nutzt Basic Auth (User/Pass), um ein API-Token auszugeben.
     user = db.session.scalar(sa.select(User).where(User.username == username))
     if user and user.check_password(password):
         return user
@@ -17,14 +24,17 @@ def verify_password(username, password):
 
 @basic_auth.error_handler
 def basic_auth_error(status):
+    # Einheitliche API-Fehlerstruktur auch bei Auth-Fehlern.
     return error_response(status)
 
 
 @token_auth.verify_token
 def verify_token(token):
+    # Alle geschützten API-Endpunkte prüfen den Bearer-Token über dieses Callback.
     return User.check_token(token) if token else None
 
 
 @token_auth.error_handler
 def token_auth_error(status):
+    # Einheitliche API-Fehlerstruktur auch bei Token-Fehlern.
     return error_response(status)

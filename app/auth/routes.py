@@ -1,3 +1,5 @@
+"""Auth-Routen fuer Login, Logout und Registrierung."""
+
 from urllib.parse import urlsplit
 
 import sqlalchemy as sa
@@ -12,6 +14,7 @@ from app.models import User
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    # Bereits eingeloggte User sollen nicht erneut auf die Login-Seite.
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
@@ -28,6 +31,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
 
         next_page = request.args.get('next')
+        # Open-Redirect-Schutz: nur relative interne Redirect-Ziele erlauben.
         if not next_page or urlsplit(next_page).netloc != '':
             next_page = url_for('main.index')
         return redirect(next_page)
@@ -37,12 +41,14 @@ def login():
 
 @bp.route('/logout')
 def logout():
+    # Session beenden und zur Startseite weiterleiten.
     logout_user()
     return redirect(url_for('main.index'))
 
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
+    # Registriert einen neuen User inkl. Passwort-Hash.
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 

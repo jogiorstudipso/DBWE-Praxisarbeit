@@ -1,3 +1,5 @@
+"""Zentrale Fehlerbehandlung fuer HTML- und API-Clients."""
+
 from flask import render_template, request
 from app import db
 from app.errors import bp
@@ -5,12 +7,14 @@ from app.api.errors import error_response as api_error_response
 
 
 def wants_json_response():
+    # Für API-Clients JSON liefern, im Browser HTML-Fehlerseiten rendern.
     return request.accept_mimetypes['application/json'] >= \
         request.accept_mimetypes['text/html']
 
 
 @bp.app_errorhandler(404)
 def not_found_error(error):
+    # 404 je nach Client-Typ als JSON oder HTML zurueckgeben.
     if wants_json_response():
         return api_error_response(404)
     return render_template('errors/404.html'), 404
@@ -18,6 +22,7 @@ def not_found_error(error):
 
 @bp.app_errorhandler(500)
 def internal_error(error):
+    # Offene Transaktionen bei DB-Fehlern zurückrollen, um Folgeschäden zu vermeiden.
     db.session.rollback()
     if wants_json_response():
         return api_error_response(500)

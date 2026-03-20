@@ -1,3 +1,9 @@
+"""Datenmodell der Anwendung.
+
+Enthaelt User, Project und TaskItem inklusive Hilfsmethoden fuer Auth,
+Token-Handling und berechnete Statuswerte (Fortschritt/Ueberfaelligkeit).
+"""
+
 from datetime import datetime, timezone, timedelta, date
 from typing import Optional
 import secrets
@@ -11,6 +17,7 @@ from app import db, login
 
 
 class User(UserMixin, db.Model):
+    # User ist Login-Identitaet fuer Web-Session und API.
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     username: so.Mapped[str] = so.mapped_column(
         sa.String(64), index=True, unique=True
@@ -39,13 +46,16 @@ class User(UserMixin, db.Model):
         return f'<User {self.username}>'
 
     def set_password(self, password: str) -> None:
+        # Speichert nur den Hash, nie das Klartext-Passwort.
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password: str) -> bool:
+        # Vergleicht Klartext gegen den gespeicherten Hash.
         return check_password_hash(self.password_hash, password)
 
     def get_token(self, expires_in: int = 3600) -> str:
         now = datetime.now(timezone.utc)
+        # Bestehendes Token wiederverwenden, solange es noch >60s gültig ist.
         if (
             self.token
             and self.token_expiration
@@ -55,15 +65,18 @@ class User(UserMixin, db.Model):
             return self.token
 
         self.token = secrets.token_hex(16)
+        # Token gueltig fuer expires_in Sekunden (Default: 1h).
         self.token_expiration = now + timedelta(seconds=expires_in)
         db.session.add(self)
         return self.token
 
     def revoke_token(self) -> None:
+        # Ablaufzeit in die Vergangenheit setzen => Token sofort ungueltig.
         self.token_expiration = datetime.now(timezone.utc) - timedelta(seconds=1)
 
     @staticmethod
     def check_token(token: str):
+        # Liefert nur Nutzer mit gültigem (nicht abgelaufenem) API-Token.
         user = db.session.scalar(sa.select(User).where(User.token == token))
         if user is None or user.token_expiration is None:
             return None
@@ -75,10 +88,12 @@ class User(UserMixin, db.Model):
 
 @login.user_loader
 def load_user(user_id):
+    # Flask-Login lädt bei jeder Session den User über dessen ID.
     return db.session.get(User, int(user_id))
 
 
 class Project(db.Model):
+    # Ein Projekt gehoert genau einem User und enthaelt mehrere Tasks.
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(
         db.Integer,
@@ -99,6 +114,7 @@ class Project(db.Model):
     )
 
     def progress_percent(self) -> int:
+        # Fortschritt = Anteil erledigter Tasks im Projekt.
         total = self.tasks.count()
         if total == 0:
             return 0
@@ -106,6 +122,7 @@ class Project(db.Model):
         return int(round((done / total) * 100))
 
     def has_overdue(self) -> bool:
+        # True, wenn mindestens eine offene Task überfällig ist.
         today = date.today()
         return self.tasks.filter(
             TaskItem.done.is_(False),
@@ -115,6 +132,7 @@ class Project(db.Model):
 
 
 class TaskItem(db.Model):
+    # Einzelne Aufgabe innerhalb eines Projekts.
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(
         db.Integer,
@@ -131,6 +149,7 @@ class TaskItem(db.Model):
     completed_at = db.Column(db.DateTime, nullable=True)
 
     def is_overdue(self) -> bool:
+        # Eine Task ist nur überfällig, wenn sie offen ist und ein altes Due-Date hat.
         return (
             not self.done
             and self.due_date is not None

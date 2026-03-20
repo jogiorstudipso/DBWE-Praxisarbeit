@@ -1,3 +1,9 @@
+"""Web-UI Routen fuer Dashboard, Projekte und Tasks.
+
+Alle Endpunkte in diesem File sind fuer eingeloggte User gedacht und arbeiten
+immer im Kontext des aktuellen Benutzers.
+"""
+
 from datetime import datetime, timezone
 
 from flask import render_template, flash, redirect, url_for
@@ -12,6 +18,7 @@ from app.models import Project, TaskItem
 @bp.before_app_request
 def before_request():
     if current_user.is_authenticated:
+        # Last-Seen wird bei jedem Request eines eingeloggten Users aktualisiert.
         current_user.last_seen = datetime.now(timezone.utc)
         db.session.commit()
 
@@ -20,6 +27,7 @@ def before_request():
 @bp.route('/index')
 @login_required
 def index():
+    # Zeigt nur aktive (nicht archivierte) Projekte des Users.
     projects = (
         current_user.projects
         .filter_by(archived=False)
@@ -32,6 +40,7 @@ def index():
 @bp.route('/projects/new', methods=['GET', 'POST'])
 @login_required
 def create_project():
+    # Formularseite fuer neue Projekte.
     form = ProjectForm()
     if form.validate_on_submit():
         project = Project(name=form.name.data.strip(), owner=current_user)
@@ -45,6 +54,7 @@ def create_project():
 @bp.route('/projects/<int:project_id>', methods=['GET', 'POST'])
 @login_required
 def project_detail(project_id: int):
+    # Zugriffsschutz: nur Projekte des aktuell eingeloggten Users laden.
     project = Project.query.filter_by(
         id=project_id,
         user_id=current_user.id
@@ -52,6 +62,7 @@ def project_detail(project_id: int):
 
     form = TaskForm()
     if form.validate_on_submit():
+        # POST auf derselben Seite erstellt direkt eine neue Task.
         task = TaskItem(
             project=project,
             title=form.title.data.strip(),
@@ -65,6 +76,7 @@ def project_detail(project_id: int):
         return redirect(url_for('main.project_detail', project_id=project.id))
 
     tasks = project.tasks.order_by(TaskItem.created_at.desc()).all()
+    # GET rendert Projekt-Metadaten + Taskliste + Eingabeformular.
     return render_template(
         'project_detail.html',
         title=project.name,
@@ -77,6 +89,7 @@ def project_detail(project_id: int):
 @bp.route('/tasks/<int:task_id>/toggle', methods=['POST'])
 @login_required
 def toggle_task(task_id: int):
+    # Join auf Project stellt sicher, dass nur eigene Tasks geändert werden.
     task = (
         TaskItem.query
         .join(Project)
@@ -86,6 +99,7 @@ def toggle_task(task_id: int):
 
     task.done = not task.done
     if task.done:
+        # Zeitstempel nur setzen, wenn tatsächlich als erledigt markiert.
         task.completed_at = datetime.now(timezone.utc)
     else:
         task.completed_at = None
@@ -97,6 +111,7 @@ def toggle_task(task_id: int):
 @bp.route('/tasks/<int:task_id>/delete', methods=['POST'])
 @login_required
 def delete_task(task_id: int):
+    # Auch beim Loeschen: nur Tasks aus eigenen Projekten erlauben.
     task = (
         TaskItem.query
         .join(Project)

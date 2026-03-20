@@ -1,3 +1,8 @@
+"""WSGI/Flask Einstiegspunkt.
+
+Exportiert die App-Instanz und liefert Shell-Kontext fuer lokale Wartung.
+"""
+
 import sqlalchemy as sa
 import sqlalchemy.orm as so
 
@@ -9,6 +14,7 @@ app = create_app()
 
 @app.shell_context_processor
 def make_shell_context():
+    # Praktische Standard-Imports für "flask shell".
     return {
         'sa': sa,
         'so': so,
