@@ -15,6 +15,7 @@ def translate():
 @click.argument('lang')
 def init(lang):
     """Initialize a new language."""
+    # Extrahiert Übersetzungsstrings und erstellt ein neues Sprachverzeichnis.
     if os.system('pybabel extract -F babel.cfg -k _l -o messages.pot .'):
         raise RuntimeError('extract command failed')
     if os.system(

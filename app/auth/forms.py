@@ -25,6 +25,7 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_username(self, username):
+        # WTForms ruft validate_<feldname> automatisch bei Formularvalidierung auf.
         user = db.session.scalar(
             sa.select(User).where(User.username == username.data)
         )

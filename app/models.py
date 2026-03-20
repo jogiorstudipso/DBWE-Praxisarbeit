@@ -46,6 +46,7 @@ class User(UserMixin, db.Model):
 
     def get_token(self, expires_in: int = 3600) -> str:
         now = datetime.now(timezone.utc)
+        # Bestehendes Token wiederverwenden, solange es noch >60s gültig ist.
         if (
             self.token
             and self.token_expiration
@@ -64,6 +65,7 @@ class User(UserMixin, db.Model):
 
     @staticmethod
     def check_token(token: str):
+        # Liefert nur Nutzer mit gültigem (nicht abgelaufenem) API-Token.
         user = db.session.scalar(sa.select(User).where(User.token == token))
         if user is None or user.token_expiration is None:
             return None
@@ -75,6 +77,7 @@ class User(UserMixin, db.Model):
 
 @login.user_loader
 def load_user(user_id):
+    # Flask-Login lädt bei jeder Session den User über dessen ID.
     return db.session.get(User, int(user_id))
 
 
@@ -99,6 +102,7 @@ class Project(db.Model):
     )
 
     def progress_percent(self) -> int:
+        # Fortschritt = Anteil erledigter Tasks im Projekt.
         total = self.tasks.count()
         if total == 0:
             return 0
@@ -106,6 +110,7 @@ class Project(db.Model):
         return int(round((done / total) * 100))
 
     def has_overdue(self) -> bool:
+        # True, wenn mindestens eine offene Task überfällig ist.
         today = date.today()
         return self.tasks.filter(
             TaskItem.done.is_(False),
@@ -131,6 +136,7 @@ class TaskItem(db.Model):
     completed_at = db.Column(db.DateTime, nullable=True)
 
     def is_overdue(self) -> bool:
+        # Eine Task ist nur überfällig, wenn sie offen ist und ein altes Due-Date hat.
         return (
             not self.done
             and self.due_date is not None

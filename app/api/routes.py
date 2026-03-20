@@ -19,6 +19,7 @@ def get_projects():
 
     data = []
     for project in projects:
+        # API liefert nur berechnete Werte, keine interne ORM-Logik.
         data.append({
             'id': project.id,
             'name': project.name,
@@ -110,6 +111,7 @@ def create_task_api(project_id):
     due_date = None
     if due_date_raw:
         try:
+            # Erwartetes Datumsformat für die API: ISO-ähnlich YYYY-MM-DD.
             due_date = datetime.strptime(due_date_raw, '%Y-%m-%d').date()
         except ValueError:
             return jsonify({'error': 'due_date muss im Format YYYY-MM-DD sein.'}), 400

@@ -12,6 +12,7 @@ from app.models import Project, TaskItem
 @bp.before_app_request
 def before_request():
     if current_user.is_authenticated:
+        # Last-Seen wird bei jedem Request eines eingeloggten Users aktualisiert.
         current_user.last_seen = datetime.now(timezone.utc)
         db.session.commit()
 
@@ -45,6 +46,7 @@ def create_project():
 @bp.route('/projects/<int:project_id>', methods=['GET', 'POST'])
 @login_required
 def project_detail(project_id: int):
+    # Zugriffsschutz: nur Projekte des aktuell eingeloggten Users laden.
     project = Project.query.filter_by(
         id=project_id,
         user_id=current_user.id
@@ -77,6 +79,7 @@ def project_detail(project_id: int):
 @bp.route('/tasks/<int:task_id>/toggle', methods=['POST'])
 @login_required
 def toggle_task(task_id: int):
+    # Join auf Project stellt sicher, dass nur eigene Tasks geändert werden.
     task = (
         TaskItem.query
         .join(Project)
@@ -86,6 +89,7 @@ def toggle_task(task_id: int):
 
     task.done = not task.done
     if task.done:
+        # Zeitstempel nur setzen, wenn tatsächlich als erledigt markiert.
         task.completed_at = datetime.now(timezone.utc)
     else:
         task.completed_at = None
